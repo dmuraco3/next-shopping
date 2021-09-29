@@ -1,5 +1,5 @@
 datasource db {
-  provider = "mysql"
+  provider = "postgresql"
   url      = env("DATABASE_URL")
 }
 
@@ -9,7 +9,7 @@ generator client {
 
 model Category {
   id        Int      @id @default(autoincrement())
-  name      String   @unique @db.VarChar(150)
+  name      String   @unique
   createdAt DateTime @default(now()) @map("created_at")
   updatedAt DateTime @updatedAt @map("updated_at")
 
@@ -20,7 +20,7 @@ model Category {
 
 model Tag {
   id        Int      @id @default(autoincrement())
-  name      String   @unique @db.VarChar(150)
+  name      String   @unique 
   createdAt DateTime @default(now()) @map("created_at")
   updatedAt DateTime @updatedAt @map("updated_at")
 
@@ -38,16 +38,14 @@ enum Visibility {
 
 model Product {
   id          Int        @id @default(autoincrement())
-  name        String     @unique @db.VarChar(200)
-  slug        String     @unique @db.VarChar(200)
-  reference   String     @unique @default(uuid()) @db.VarChar(50)
-  description String?    @db.Text
-  price       Float      @db.Float
-  isAvailable Boolean    @default(true) @map("is_available") @db.TinyInt
-  viewCount   Int        @default(0) @map("view_count") @db.Int
+  name        String     @unique
+  description String?   
+  price       Float      
+  viewCount   Int        @default(0)
   visibility  Visibility @default(VISIBLE)
+  ratings     Json[]       
   pictures    Json
-  extras      Json       @db.Json
+  extras      Json      
   createdAt   DateTime   @default(now()) @map("created_at")
   updatedAt   DateTime   @updatedAt @map("updated_at")
   category    Category   @relation(fields: [categoryId], references: [id])
