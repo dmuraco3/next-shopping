@@ -36,16 +36,23 @@ enum Visibility {
   DEAL
 }
 
+enum Gender {
+  MALE
+  FEMALE
+  NA
+}
+
 model Product {
   id          Int        @id @default(autoincrement())
-  name        String     @unique
-  description String?   
+  name        String 
+  description String   
   price       Float      
   viewCount   Int        @default(0)
   visibility  Visibility @default(VISIBLE)
   ratings     Json[]       
-  pictures    Json
-  extras      Json      
+  pictures    String[]
+  extras      Json
+  gender      Gender     @default(NA)      
   createdAt   DateTime   @default(now()) @map("created_at")
   updatedAt   DateTime   @updatedAt @map("updated_at")
   category    Category   @relation(fields: [categoryId], references: [id])
