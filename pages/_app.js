@@ -1,5 +1,6 @@
 import '../styles/globals.css'
 import Navbar from '../components/navbar'
+import SaleHeader from '../components/SaleHeader'
 
 import {Provider} from 'react-redux'
 import { PersistGate } from 'redux-persist/integration/react'
@@ -9,8 +10,9 @@ function MyApp({ Component, pageProps }) {
   return (
     <Provider store={store}>
       <PersistGate persistor={persistor}>
-      <Navbar />
-      <Component {...pageProps} />
+        <SaleHeader />
+        <Navbar />
+        <Component {...pageProps} />
       </PersistGate>
 
     </Provider>

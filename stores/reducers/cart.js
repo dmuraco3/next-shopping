@@ -3,27 +3,32 @@ import { createSlice } from "@reduxjs/toolkit";
 export const cartSlice = createSlice({
   name: "cart",
   initialState: {
-    cart: []
+    cart: [],
+    justAdded: null,
   },
   reducers: {
     add: (state, action) => {
+      let done = false
       if (typeof action.payload === "object") {
         if (state.cart.length !== 0) {
-          for (let x = 0; x <= state.cart.length; x++) {
-            if (state.cart[x].id === action.payload.id) {
+          state.cart.map((item, index) => {
+            if(action.payload.id == item.id){
               state.cart = [
-                ...state.cart.slice(0, x),
+                ...state.cart.slice(0, index),
                 {
-                  ...state.cart[x],
-                  quantity: state.cart[x].quantity + 1
+                  ...state.cart[index],
+                  quantity: state.cart[index].quantity + 1
                 },
-                ...state.cart.slice(x + 1)
+                ...state.cart.slice(index + 1)
               ];
-              return;
+              done=true;
             }
-          }
+          })
         }
-        state.cart = [...state.cart, action.payload];
+        if(!done){
+          state.cart = [...state.cart, action.payload];
+        }
+        state.justAdded = action.payload;
       } else {
         console.error("Cannot add item to cart!");
       }
@@ -36,10 +41,14 @@ export const cartSlice = createSlice({
           ...state.cart.slice(action.payload + 1)
         ];
       }
+    },
+    removeJustAdded: (state, action) => {
+      state.justAdded = null;
     }
   }
 });
 
-export const { add, remove } = cartSlice.actions;
+export const { add, remove, removeJustAdded } = cartSlice.actions;
 export const selectCart = (state) => state.cart.cart;
+export const selectAdded = (state) => state.cart.justAdded;
 export default cartSlice.reducer;

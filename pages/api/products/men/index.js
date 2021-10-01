@@ -5,9 +5,9 @@ const Client = new PrismaClient();
 export default async function handler(req, res) {
   const manlyClothes = await Client.product.findMany({
     where: {
-      visibility: "FEATURED",
+      visibility: "VISIBLE",
       category: {
-        name: "shirt"
+        name: "shirts"
       }
     }
   });

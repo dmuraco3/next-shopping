@@ -21,7 +21,8 @@ export default function Men() {
         name: item.name,
         price: item.price,
         image: item.pictures[0],
-        quantity: 0
+        quantity: 0,
+        category: item.categoryName,
       })
     );
   }
