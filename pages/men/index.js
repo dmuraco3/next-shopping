@@ -21,8 +21,9 @@ export default function Men() {
         name: item.name,
         price: item.price,
         image: item.pictures[0],
-        quantity: 0,
+        quantity: 1,
         category: item.categoryName,
+        gender: item.gender
       })
     );
   }

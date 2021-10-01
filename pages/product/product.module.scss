@@ -1,0 +1,12 @@
+.Container {
+  display: flex;
+  flex-wrap:wrap;
+  .ProductImages {
+    flex: 0 1 50%;
+    display: flex;
+    flex-wrap: wrap;
+    .ProductImageContainer {
+      flex: 0 1 50%;
+    }
+  }
+}

@@ -4,15 +4,15 @@ export const cartSlice = createSlice({
   name: "cart",
   initialState: {
     cart: [],
-    justAdded: null,
+    justAdded: null
   },
   reducers: {
     add: (state, action) => {
-      let done = false
+      let done = false;
       if (typeof action.payload === "object") {
         if (state.cart.length !== 0) {
           state.cart.map((item, index) => {
-            if(action.payload.id == item.id){
+            if (action.payload.id === item.id) {
               state.cart = [
                 ...state.cart.slice(0, index),
                 {
@@ -21,11 +21,12 @@ export const cartSlice = createSlice({
                 },
                 ...state.cart.slice(index + 1)
               ];
-              done=true;
+              done = true;
+              return;
             }
-          })
+          });
         }
-        if(!done){
+        if (!done) {
           state.cart = [...state.cart, action.payload];
         }
         state.justAdded = action.payload;

@@ -6,6 +6,7 @@ export default async function handler(req, res) {
   const manlyClothes = await Client.product.findMany({
     where: {
       visibility: "VISIBLE",
+
       category: {
         name: "shirts"
       }

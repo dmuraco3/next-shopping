@@ -13,9 +13,17 @@ $secondary-color: #D6FF38;
     background-color: white;
 
     .NavbarLogo {
+        display: block;
         position: relative;
         flex: 0 1 10%;
+        height: 10%;
         z-index: 3;
+
+        .img {
+            overflow: hidden;
+            width: 100%;
+            overflow: hidden;
+        }
     }
     .NavComponents {
         position: relative;
@@ -78,6 +86,9 @@ $secondary-color: #D6FF38;
                 top: 100%;
                 left: -100%;
                 width: 200%;
+                padding: 10px;
+                padding-bottom: 20px;
+                
                 background-color: white;
                 .TopActions {
                     display: flex;
@@ -90,7 +101,7 @@ $secondary-color: #D6FF38;
                         
                         font-size: 12px;
                         .GreenCheck {
-                            color: lightgreen;
+                            color: green;
                             margin-right: 10px;
                         }
                     }
@@ -101,6 +112,72 @@ $secondary-color: #D6FF38;
                         color: rgba(0, 0, 0, 0.75);
                         &:hover {
                             cursor: pointer;
+                        }
+                    }
+                }
+                .Product {
+                    margin-top: 20px;
+                    display: flex;
+                    flex-wrap: wrap;
+                    .ProductImageContainer {
+                        flex: 0 1 20%;
+                        display: flex;
+                        justify-content: center;
+                        align-items: center;
+                        
+                    }
+                    .ProductInfo{ 
+                        padding-left: 10px; 
+                        flex: 0 1 80%;
+                        .ProductName {
+                            display: block;
+                            font-size: 16px;
+                        }
+                        .ProductCategory {
+                            display: block;
+                            font-size: 16px;
+                            color: #8f8f8f;
+
+                        }
+                        .ProductPrice {
+                            display: block;
+                            font-size: 16px;
+
+                        }
+
+                    }
+                    .UserInteract {
+                        margin-top: 20px;
+                        display: flex;
+                        flex-wrap: wrap;
+                        align-items: center;
+                        justify-content: center;
+                        width: 100%;
+                        .ViewCartButton {
+                            padding: 15px 17px;
+                            flex: 0 1 45%;
+                            min-width: 137px;
+                            border-radius: 25px;
+                            border: solid 1px #8f8f8f;
+                            background-color: white;
+                            font-size: 16px;
+
+                        }
+                        .ButtonSpacer {
+                            flex: 0 1 10%;
+                            height: 1px;
+                        }
+                        .CheckoutButton {
+                            padding: 15px 17px;
+                            flex: 0 1 45%;
+                            min-width: 137px;
+
+                            text-align: center;
+                            border-radius: 25px;
+                            border: solid 1px white;
+                            background-color: black;
+                            color: white;
+                            font-size: 16px;
                         }
                     }
                 }
