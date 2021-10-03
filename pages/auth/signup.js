@@ -1,16 +1,63 @@
 import styles from './auth.module.scss'
-import {signIn} from 'next-auth/client'
+import {getSession, signIn, useSession} from 'next-auth/client'
 import {useState} from 'react'
 import CountrySelect from '../../components/auth/form/CountrySelect'
+import {randomBytes, createHash} from 'crypto';
+
 export default function SignUp() {
-    const [formData, setFormData] = useState({news:true})
+    const [formData, setFormData] = useState({
+        email: '',
+        password: '',
+        fname: '',
+        lname: '',
+        date: '',
+        country: '',
+        gender: '',
+        news:true
+    })
     const [error, setError] = useState(null)
+    const [session, status] = useSession({
+        onUnauthenticated() {
+            console.log("not authenticated")
+        }
+    })
+    
     const updateFormData = (e) => {
         console.log(e.target.name)
+        if(e.target.name == 'date'){
+            console.log(e.target.value)
+        }
         setFormData(prevState => ({
             ...prevState,
             [e.target.name]: e.target.value
         }))
+    }
+
+    const genHash = (password, email) => {
+        const salt = createHash('sha256').update(email).digest('hex');
+        const hash = createHash('sha256').update(password).update(salt).digest("hex")
+        const fullHash = hash+salt;
+        console.log(fullHash)
+        return hash
+    }
+
+    const postForm = (e) => {
+        e.preventDefault()
+        const data = {
+            email: formData.email,
+            password: genHash(formData.password, formData.email),
+            fname: formData.fname,
+            lname: formData.lname,
+            date: formData.date,
+            country: formData.country,
+            gender: formData.gender,
+            news: formData.news,
+            type: "SignUp",
+        }
+        signIn('credentials', {redirect: false, ...data}).then(response => {
+            console.log(response)
+            console.log(status)
+        })
     }
 
 
@@ -19,6 +66,12 @@ export default function SignUp() {
             <form className={styles.Form}>
                 <div className={styles.FormGroup}>
                     <textarea value={JSON.stringify(formData)} style={{height: 200}} />
+                    {session && <div>{JSON.stringify(session)}</div>}
+                    <button onClick={(e) => {
+                        e.preventDefault()
+                        console.log(session)
+                    }}>click me </button>
+
                 </div>
                 <div className={styles.FormGroup}>
                     <input type="email" name="email" id="email" placeholder="Email Address" onChange={updateFormData} formNoValidate/>
@@ -39,19 +92,22 @@ export default function SignUp() {
                     <CountrySelect name="country" onChange={updateFormData}/>
                 </div>
                 <div className={styles.FormGroup}>
-                    <button onClick={(event) => {
-                        event.preventDefault()
-                        event.target.name = "gender"
-                        event.target.value = "male"
-                        updateFormData(event)
-                    }}>Male</button>
-                    <button onClick={(event) => {
-                        event.preventDefault()
-                        event.target.name = "gender"
-                        event.target.value = "female"
-                        updateFormData(event)
+                    <div className={styles.FormGenderControllers}>
+                        <button className={`${styles.FormGenderButton} ${formData.gender == "male" && styles.FormGenderActiveButton}`} onClick={(event) => {
+                            event.preventDefault()
+                            event.target.name = "gender"
+                            event.target.value = "male"
+                            updateFormData(event)
+                        }}>Male</button>
+                        <button className={`${styles.FormGenderButton}  ${formData.gender == "female" && styles.FormGenderActiveButton}`} onClick={(event) => {
+                            event.preventDefault()
+                            event.target.name = "gender"
+                            event.target.value = "female"
+                            updateFormData(event)
 
-                    }}>Female</button>
+                        }}>Female</button>
+
+                    </div>
                 </div>
                 <div className={styles.FormGroup}>
                     <input type="checkbox" name="news" checked={formData.news} onClick={e => {                       
@@ -78,6 +134,10 @@ export default function SignUp() {
                 </div>
                 <div className={styles.FormInfo}>
                     <p>By clicking Sign Up, you agree to our <a href="/somewhere" target="_blank">Terms of Service</a> and <a href="/somewhere" target="_blank">Privacy Policy.</a></p>
+                </div>
+
+                <div className={styles.FormGroup}>
+                    <button onClick={postForm}>Sign Up</button>
                 </div>
                 
             </form>

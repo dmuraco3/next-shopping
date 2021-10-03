@@ -39,10 +39,22 @@ $secondary-color: #D6FF38;
             align-items: center;
             flex: 0 1 15%;
             border: 1px solid black;
-
+            background: none;
             font-size: 26px;
             font-weight: 400;
 
+            background-image: linear-gradient(to top, $secondary-color 50%, transparent 50%);
+            background-size: 100% 200%;
+            background-position: top;
+            transition: background-position 0.5s ease-in-out; /** I've changed the time for demo purposes **/
+            color: black;
+
+
+        }
+        .ActiveNavLink {
+            background-position: bottom;
+            color: black;
+            transition: background-position 0.5s ease-in-out;
         }
         .UserActions {
             display: flex;

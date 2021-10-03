@@ -1,68 +1,106 @@
 import NextAuth from "next-auth";
-import CredentialProvider from "next-auth/providers/credential";
+import CredentialProvider from "next-auth/providers/credentials";
 
-import {getCsrfToken} from "next-auth/react"
 import {PrismaClient} from "@prisma/client"
+import { signIn } from "next-auth/client";
+import { FaLessThanEqual } from "react-icons/fa";
+
+let userAccount = null;
 
 const client = new PrismaClient()
 export default NextAuth({
+    secret: process.env.NEXT_AUTH_SECRET,
     providers: [
         CredentialProvider({
-            name: "Credentials",
+            name: "credentials",
             credentials: {
-                username: {label: "Username", type: "text", placeholder: "Ex. jdoe"},
-                password: {label: "Password", type: "Password"},
-            },
-            async authorize(credentials, req) {
-                const {username, password} = credentials;
-                const user = await client.user.findUnique({
-                    where: {
-                        username: username,
-                    }
-                })
-                if(user) {
-                    const valid = await client.user.findUnique({
-                        where: {
-                            username: username,
-                            password: password,
-                        }
-                    })
-                    if(valid) {
-                        return valid
-                    } else {
-                        return null;
-                    }
-                } else {
-                    return null;
-                }
-            }
-        }),
-        CredentialProvider({
-            name: "CredentialsSignUp",
-            credentials: {
-                username: {label: "Username", type: "text", placeholder: "Ex. jdoe"},
-                password1: {label: "Password", type: "Password"},
-                password2: {label: "Confirm Password", type: "Password"},
+                email: {label: "Email", type: "email", placeholder: "Email Address"},
+                password: {label: "Password", type: "Password", placeholder : "Password"},
+                fname: {label: "First Name", type: "text", placeholder: "First Name"},
+                lname: {label: "Last Name", type: "text", placeholder: "Last Name"},
+                date: {label: "Date of Birth", type: "date", placeholder: "Date of Birth"},
+                country: {label: "Country", type: "text", placeholder: "Country"},
+                gender: {label: "Gender", type: "text", placeholder: "Gender"}
+                
 
             },
             async authorize(credentials, req) {
-                const {username, password1, password2} = credentials;
-                if(password1 !== password2) {
-                    return null;
-                }
+                const {
+                    email,
+                    password,
+                    fname,
+                    lname,
+                    date,
+                    country,
+                    gender,
+                    news,
+                    type,
+                } = credentials;
                 
-                const user = await client.user.create({
-                    where: {
-                        username: username,
-                        password: password1
+                if(type === "SignUp") {
+                    const user = await client.user.create({
+                        data: {
+                            email: email,
+                            password: password,
+                            fname: fname,
+                            lname: lname,
+                            dob: new Date(date).toISOString(),
+                            country: country,
+                            gender: gender,
+                            news: JSON.parse(news),
+                            
+                        },
+                    })
+                    if(user) {
+                        return {email: user.email, fname: user.fname, lname: user.lname, role: user.role};
                     }
-                })
-                if(user) {
-                    return user;
-                } else {
-                    return null
+                } else if(type === "SignIn") {
+                    const user = await client.user.findUnique({
+                        where: {
+                            email: email,
+                            password: password,
+                        },
+                        include: {
+                            email: true,
+                            fname: true,
+                            lname: true,
+                            dob: true,
+                            country: true,
+                            gender: true,
+                            news: true,
+                        }
+                    })
+                    if(user) {
+                        return user;
+                    } else return null;
                 }
+
             }
         })
-    ]
+    ],
+    callbacks: {
+        /**
+         * @param  {object}  token     Decrypted JSON Web Token
+         * @param  {object}  user      User object      (only available on sign in)
+         * @param  {object}  account   Provider account (only available on sign in)
+         * @param  {object}  profile   Provider profile (only available on sign in)
+         * @param  {boolean} isNewUser True if new user (only available on sign in)
+         * @return {object}            JSON Web Token that will be saved
+         */
+         async signIn(user, account, profile) {
+            return user 
+        },
+        async jwt(token, user, account, profile, isNewUser) {
+            if (user) {
+                token.user = user;
+            }
+            return token
+        },
+        async session(session, user, token) {
+            console.log(session, user, token)
+            session.user = user.user;
+            return session
+        }
+        
+    }
 })

@@ -20,6 +20,27 @@
                     outline: none;
                 }
             }
+            .FormGenderControllers {
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                .FormGenderButton {
+                    border: 0;
+                    padding: 10px 12px;
+                    margin: 0 5px;
+                    min-width: 68px;
+                    &:hover {
+                        cursor: pointer;
+                    
+                    }
+                }
+                .FormGenderActiveButton {
+                    background-color:black;
+                    color: white;
+                }
+                
+
+            }
         }
     }
 }

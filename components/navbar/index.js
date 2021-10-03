@@ -10,9 +10,36 @@ import {
 } from "../../stores/reducers/cart";
 import { useSelector } from "react-redux";
 import { store } from "../../stores/configureStore";
+import { useRouter } from "next/dist/client/router";
+
+import {signOut, useSession} from 'next-auth/client'
+
+
+function ActiveLink({ children, href }) {
+  const router = useRouter()
+  const style = {
+    cursor: "pointer",
+    color: router.asPath === href ? 'red' : 'black',
+  }
+
+  const handleClick = (e) => {
+    e.preventDefault()
+    router.push(href)
+  }
+
+  return (
+    <div onClick={handleClick} className={` ${styles.NavLink} ${router.asPath === href && styles.ActiveNavLink}`}>
+      {children}
+    </div>
+  )
+}
+
+
 export default function Navbar() {
   const cart = useSelector(selectCart);
   const justAdded = useSelector(selectAdded);
+
+  const [session, status] = useSession();
 
   const notActive = false;
 
@@ -42,14 +69,18 @@ export default function Navbar() {
           <img src="/LOGO.svg" alt="LOGO" />
         </div>
         <div className={styles.NavComponents}>
-          <div className={styles.NavLink}>New</div>
-          <div className={styles.NavLink}>Women</div>
-          <div className={styles.NavLink}>Men</div>
+          <ActiveLink href="/new">New</ActiveLink>
+          <ActiveLink href="/women">Women</ActiveLink>
+          <ActiveLink href="/men">Men</ActiveLink>
+
+
 
           <div className={`${styles.NavLink} ${styles.UserActions}`}>
             <div className={styles.User}>
               <FaUserCircle size={30} />
-              <span className={styles.UserDo}>Log In</span>
+              {!session && <span className={styles.UserDo} onClick={() => console.log(session)}>Log In</span>}
+              {session && <span className={styles.UserDo} onClick={() => signOut()}>Sign out</span>}
+            
             </div>
             <div className={styles.UserCart}>
               <FaShoppingBag size={35} className={styles.ShoppingBag} />
