@@ -55,8 +55,8 @@ export default function Navbar() {
               <FaShoppingBag size={35} className={styles.ShoppingBag} />
               <span className={styles.CartContent}>{cartSize()}</span>
             </div>
-            <div className={styles.JustAdded}>
-              {justAdded && (
+            {justAdded && (
+              <div className={styles.JustAdded}>
                 <div>
                   <div className={styles.TopActions}>
                     <span className={styles.notif}>
@@ -105,8 +105,9 @@ export default function Navbar() {
                     </div>
                   </div>
                 </div>
-              )}
-            </div>
+              </div>
+
+            )}
           </div>
         </div>
       </nav>

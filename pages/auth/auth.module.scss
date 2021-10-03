@@ -1,0 +1,25 @@
+.FormContainer {
+    height: 100%;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    .Form {
+        width: 25%;
+        padding: 0px 20px;
+        border: solid 1px black;
+        .FormGroup {
+            input[type="text"], input[type="password"], input[type="email"], input[type="date"], select {
+                width: 100%;
+                height: 40px;
+                border-radius: 5px;
+                border: 1px solid #ccc;
+                padding: 0 10px;
+                margin: 10px 10px;
+                &:focus {
+                    outline: none;
+                }
+            }
+        }
+    }
+}
