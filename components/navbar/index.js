@@ -40,6 +40,7 @@ export default function Navbar() {
   const justAdded = useSelector(selectAdded);
 
   const [session, status] = useSession();
+  const router = useRouter()
 
   const notActive = false;
 
@@ -66,7 +67,9 @@ export default function Navbar() {
     <div>
       <nav className={styles.navbar}>
         <div className={styles.NavbarLogo}>
-          <img src="/LOGO.svg" alt="LOGO" />
+          <img className={styles.NavbarLogoImage} src="/LOGO.svg" alt="LOGO" onClick={() => {
+            router.push('/')
+          }}/>
         </div>
         <div className={styles.NavComponents}>
           <ActiveLink href="/new">New</ActiveLink>

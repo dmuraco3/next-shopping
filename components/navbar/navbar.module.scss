@@ -19,10 +19,11 @@ $secondary-color: #D6FF38;
         height: 10%;
         z-index: 3;
 
-        .img {
-            overflow: hidden;
-            width: 100%;
-            overflow: hidden;
+        .NavbarLogoImage {
+
+            &:hover {
+                cursor: pointer;
+            }
         }
     }
     .NavComponents {
@@ -49,12 +50,23 @@ $secondary-color: #D6FF38;
             transition: background-position 0.5s ease-in-out; /** I've changed the time for demo purposes **/
             color: black;
 
+            &:hover {
+                background-position: bottom;
+                transition: background-position 0.5s ease-in-out;
+                cursor: pointer;
+
+            }
+
 
         }
         .ActiveNavLink {
             background-position: bottom;
             color: black;
             transition: background-position 0.5s ease-in-out;
+            &:hover {
+                background-position: top;
+
+            }
         }
         .UserActions {
             display: flex;

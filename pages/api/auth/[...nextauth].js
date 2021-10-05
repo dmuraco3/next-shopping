@@ -55,19 +55,24 @@ export default NextAuth({
                         return {email: user.email, fname: user.fname, lname: user.lname, role: user.role};
                     }
                 } else if(type === "SignIn") {
-                    const user = await client.user.findUnique({
+                    const user = await client.user.findFirst({
                         where: {
                             email: email,
                             password: password,
                         },
-                        include: {
+                        select: {
                             email: true,
                             fname: true,
                             lname: true,
                             dob: true,
                             country: true,
                             gender: true,
+                            role: true,
+                            createdAt: false,
+                            updatedAt: false,
                             news: true,
+                            password: false,
+                            id: false,
                         }
                     })
                     if(user) {

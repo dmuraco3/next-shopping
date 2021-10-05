@@ -1,0 +1,155 @@
+$secondary-color: #D6FF38;
+
+.BigLogo {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    .BigLogoText {
+        font-family: Arial, Helvetica, sans-serif;
+        font-weight: 700;
+        font-size: 65px;
+        flex: 0 1 100%;
+        text-align: center;
+        margin-top: 10px;
+        margin-bottom: 0px;
+    }
+    .BigLogoImage {
+
+    }
+
+}
+
+.MainCategories {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    .MainCategorySmall {
+        display: flex;
+        flex: 0 1 20%;
+        height: 650px;
+        background-color: grey;
+        justify-content: center;
+    }
+    .MainCategoryBig {
+        flex: 0 1 58%;
+        display: flex;
+        height: 650px;
+        background-color: grey;
+        margin: 0px 1%;
+        justify-content: center;
+    
+    }
+    .MainCategoryText {
+        text-align: center;
+        margin-top: auto;
+    }
+}
+
+.New {
+    .NewTitle {
+        text-align: center;
+    }
+    .NewProducts {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-wrap: wrap;
+        .Container {
+            flex: 0 1 100%;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            align-items: center;
+        }
+        .NewProduct {
+            border-radius: 0% 0% 5% 5%;
+            margin-bottom: 5px;
+            flex: 0 1 20%;
+            height: 20%;
+            background-color: #dddddd;
+            margin: 1%;
+            box-shadow: 0 5px 10px rgba(154,160,185,.05), 0 15px 40px rgba(166,173,201,.2);
+            transition: transform 0.25s ease-in;
+            
+            &:hover {
+                box-shadow: 0 5px 10px rgba(154,160,185,.3), 0 15px 40px rgba(166,173,201,.6);
+                cursor: pointer;
+                transform: scale(1.2);
+                transition: all 0.3s linear;
+            }
+            .NewProductImageContainer {
+                .NewProductImage {
+                    padding:10px;
+                    background-color: white;
+                    transition: transform 0.5s ease-in;
+
+                }
+
+            }
+            .NewProductInfo {
+                padding: 10px;
+                padding-top: 0px !important;
+                .NewProductName {
+                    display: block;
+                }
+                .NewProductPrice {
+                    display: block;
+                }
+            }
+        }
+        .ShopNewButton {
+            border: none;
+            background-color: black;
+            color: $secondary-color;
+            font-size: 18px;
+            padding: 10px 20px;
+        }   
+    }
+}
+
+.Promotions {
+    margin-top: 20px;
+    display: flex;
+    flex-wrap: wrap;
+    .Left {
+        flex: 0 1 60%;
+        height: 650px;
+        background: linear-gradient(180deg, #FFFFFF 8.85%, #D6FF38 100%);;
+        
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-wrap: wrap;
+        .Container {
+            font-family: Arial, Helvetica, sans-serif;
+            text-align: center;
+            .LightningContainer {
+                flex: 0 1 100%;
+            }
+            .Medium {
+                font-size: 22px;
+                font-weight: 400;
+            }
+            .Big {
+                font-size: 105px;
+                font-weight: 700;
+                line-height: 50px;
+            }
+            .Small {
+                font-size: 18px;
+                font-weight: 400;
+            }
+
+        }
+
+    }
+    .Right {
+        flex: 0 1 40%;
+        height: 650px;
+        background-color: grey;
+    }
+}
