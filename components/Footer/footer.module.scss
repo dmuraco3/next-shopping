@@ -1,0 +1,83 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@100;300;400;500;700;900&display=swap');
+
+.footer {
+  font-family: 'Roboto', sans-serif;
+  display: flex;
+  flex-wrap: wrap;
+  border: solid 1px black ;
+  .top {
+    display: flex;
+    flex-wrap: wrap;
+    flex: 0 1 100%;
+    .topLeft {
+      flex: 0 1 40%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background-color: black;
+      .siteInfo {
+        margin: 60px 0px;
+        color: white;
+        text-align: center;
+        .siteInfoNameContainer {
+          flex: 0 1 100%;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          flex-wrap: wrap;
+          margin-bottom: 30px;
+          .siteInfoName {
+            flex: 0 1 100%;
+            font-weight: 700;
+            font-size: 30px;
+            text-align: center;
+            margin: 0px 0px;
+          }
+
+        }
+        .siteInfoEmail, .siteInfoPhone {
+          font-weight: 400;
+          font-size: 20px;
+          &:hover {
+            text-decoration: underline;
+            cursor: pointer;
+          }
+        }
+      
+      } 
+    }
+    .topRight {
+      flex: 0 1 60%;
+      .Navigation {
+        margin-top: 50px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        .NavigationContainer {
+          flex: 0 1 33%;
+          padding: 0px 30px;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          flex-wrap: wrap;
+          .NavigationHeader {
+            flex: 0 1 100%;
+            display: block;
+            font-size: 20px;
+            font-weight: 600;
+          }
+          .NavigationComponent {
+            flex: 0 1 100%;
+
+            display: block;
+
+          }
+        }
+      }
+      
+    }
+  }
+  .bottom {
+    flex: 0 1 100%;
+  }
+}
