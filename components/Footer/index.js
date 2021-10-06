@@ -1,5 +1,8 @@
 import styles from "./footer.module.scss";
 
+import {FaFacebookF, FaInstagram, FaPinterestP, FaTwitter} from 'react-icons/fa'
+
+
 export default function Footer() {
   return (
     <footer className={styles.footer}>
@@ -44,7 +47,22 @@ export default function Footer() {
           </div>
         </div>
       </div>
-      <div className={styles.bottom}></div>
+      <div className={styles.bottom}>
+        <div className={styles.bottomLeft}>
+          <div className={styles.socials}>
+            <FaFacebookF className={styles.socialIcon} size={25} />
+            <FaInstagram className={styles.socialIcon} size={25} />
+            <FaPinterestP className={styles.socialIcon} size={25} />
+            <FaTwitter className={styles.socialIcon} size={25} />
+          </div>
+        </div>
+        <div className={styles.bottomRight}>
+          <div className={styles.copyright}>
+
+            <span className={styles.copyrightText}>© 2021 by Happy Days LLC.</span>
+          </div>
+        </div>
+      </div>
     </footer>
   );
 }

@@ -1,0 +1,28 @@
+.Main {
+    display: flex;
+    flex-wrap: wrap;
+    .TopHeader {
+        flex: 0 1 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 250px;
+        background: linear-gradient(180deg, #FFFFFF 8.85%, #D6FF38 100%);;
+        
+        .ProductCategory {
+            font-family: Arial, Helvetica, sans-serif;
+            font-weight: 900;
+            font-size: 65px;
+        }
+    }
+    .SideNav {
+        flex: 0 1 10%;
+        background: grey;
+        height: 300px;
+    }
+    .ProductLayout {
+        flex: 0 1 90%;
+        background-color: white;
+        
+    }
+}

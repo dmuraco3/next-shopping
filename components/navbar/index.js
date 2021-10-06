@@ -78,7 +78,7 @@ export default function Navbar() {
 
 
 
-          <div className={`${styles.NavLink} ${styles.UserActions}`}>
+          <div className={` ${styles.UserActions}`}>
             <div className={styles.User}>
               <FaUserCircle size={30} />
               {!session && <span className={styles.UserDo} onClick={() => console.log(session)}>Log In</span>}

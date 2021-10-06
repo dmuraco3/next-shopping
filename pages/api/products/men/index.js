@@ -3,15 +3,14 @@ import { PrismaClient } from "@prisma/client";
 const Client = new PrismaClient();
 
 export default async function handler(req, res) {
-  const manlyClothes = await Client.product.findMany({
+  const reqqe = req.query
+  const clothes = await Client.product.findMany({
+    take: parseInt(reqqe.pageLength, 10),
+    skip: parseInt(reqqe.pointer, 10),
     where: {
-      visibility: "VISIBLE",
-
-      category: {
-        name: "shirts"
-      }
+      gender: "MALE"
     }
-  });
-  console.log(manlyClothes);
-  res.status(200).json(manlyClothes);
+  })
+  console.log(reqqe);
+  res.status(200).json(clothes);
 }
