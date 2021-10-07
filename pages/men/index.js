@@ -6,6 +6,9 @@ import { store } from "../../stores/configureStore";
 
 import {Url} from "url";
 
+import Footer from '../../components/Footer'
+
+
 import styles from './men.module.scss'
 
 export default function Men() {
@@ -61,11 +64,23 @@ export default function Men() {
         <div className={styles.ProductList}>
           {clothes && clothes.map((item, index) => (
             <div className={styles.Product} key={index}>
-              <div className={styles.ProductImage}>{JSON.stringify(item)}</div>
+              <div className={styles.ProductImageContainer}>
+                <img className={styles.ProductImage} src={item.pictures[0]} width="100%"/>
+
+              </div>
+              <div className={styles.ProductInfo}>
+                <span className={styles.ProductName}>
+                  {item.name}
+                </span>
+                <span className={styles.ProductPrice}>
+                  ${item.price}
+                </span>
+              </div>
             </div>
           ))}
         </div>
       </div>
+      <Footer />
     </div>
   );
 }

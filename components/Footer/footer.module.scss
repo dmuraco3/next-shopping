@@ -10,7 +10,9 @@ $secondary-color: #D6FF38;
     flex-wrap: wrap;
     flex: 0 1 100%;
     .topLeft {
-      flex: 0 1 30%;
+      flex: 1 1 30%;
+      min-width: 180px;
+
       display: flex;
       justify-content: center;
       align-items: center;
@@ -49,8 +51,9 @@ $secondary-color: #D6FF38;
       } 
     }
     .topRight {
-      flex: 0 1 70%;
+      flex: 1 1 70%;
       border: 1px solid black;
+      min-width: 420px;
 
       .Navigation {
         margin-top: 50px;
@@ -59,7 +62,7 @@ $secondary-color: #D6FF38;
         align-items: center;
         .NavigationContainer {
           flex: 0 1 33%;
-          padding: 0px 100px;
+          padding: 0px 8%;
           display: flex;
           justify-content: center;
           align-items: center;
