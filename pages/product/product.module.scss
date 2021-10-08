@@ -20,7 +20,7 @@
       flex-wrap: wrap;
       padding-top: 10%;
       .Carousel {
-        width: 23em;
+        width: 25em;
       }
     }
   }
@@ -45,8 +45,18 @@
     margin-top: 10%;
     font-family: Arial, Helvetica, sans-serif;
     .ProductName {
-      text-align: center;
-      font-size: 40px;
+      text-align: left;
+      font-size: 35px;
+    }
+    .ProductPrice {
+      text-align: left;
+      margin-top: 20px;
+      font-size: 25px;
+      color: #444444;
+    }
+    .ProductDescription {
+      font-size: 20px;
+      color: #666666;
     }
   
   }

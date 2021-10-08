@@ -6,8 +6,13 @@ export default async function handler(req, res) {
   console.log(id);
   const product = await client.product.findUnique({
     where: {
-      id: 23
+      id: 1
+    },
+    include: {
+      related: true,
+      relatedRelation: true
     }
   });
+  console.log(product);
   res.status(200).json(product);
 }
