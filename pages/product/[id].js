@@ -3,48 +3,74 @@ import styles from "./product.module.scss";
 import { useRouter } from "next/dist/client/router";
 import { useEffect, useState } from "react";
 
+
+// Import Swiper React components
 import { Swiper, SwiperSlide } from "swiper/react";
 
-import SwiperCore, { Pagination, Navigation } from "swiper";
+// Import Swiper styles
+
+
+// import Swiper core and required modules
+import SwiperCore, {
+  Navigation,Thumbs
+} from 'swiper';
 
 // install Swiper modules
-SwiperCore.use([Pagination, Navigation]);
+SwiperCore.use([Navigation,Thumbs]);
+
 
 export default function Product() {
   const router = useRouter();
   const { id } = router.query;
   const [data, setData] = useState();
+  const [slides, setSlides] = useState([])
 
   const [thumbsSwiper, setThumbsSwiper] = useState(null);
 
+  const generateSlides = (pictures) => {
+    let slides = []
+    let pics = [
+      "https://imgs.michaels.com/MAM/assets/1/726D45CA1C364650A39CD1B336F03305/img/91F89859AE004153A24E7852F8666F0F/10093625_r.jpg?fit=inside|140:140,https://imgs.michaels.com/MAM/assets/1/726D45CA1C364650A39CD1B336F03305/img/91F89859AE004153A24E7852F8666F0F/10093625_r.jpg?fit=inside|220:220,https://imgs.michaels.com/MAM/assets/1/726D45CA1C364650A39CD1B336F03305/img/91F89859AE004153A24E7852F8666F0F/10093625_r.jpg?fit=inside|540:540",
+      "https://imgs.michaels.com/MAM/assets/1/726D45CA1C364650A39CD1B336F03305/img/91F89859AE004153A24E7852F8666F0F/10093625_r.jpg?fit=inside|140:140,https://imgs.michaels.com/MAM/assets/1/726D45CA1C364650A39CD1B336F03305/img/91F89859AE004153A24E7852F8666F0F/10093625_r.jpg?fit=inside|220:220,https://imgs.michaels.com/MAM/assets/1/726D45CA1C364650A39CD1B336F03305/img/91F89859AE004153A24E7852F8666F0F/10093625_r.jpg?fit=inside|540:540",
+      "https://imgs.michaels.com/MAM/assets/1/726D45CA1C364650A39CD1B336F03305/img/91F89859AE004153A24E7852F8666F0F/10093625_r.jpg?fit=inside|140:140,https://imgs.michaels.com/MAM/assets/1/726D45CA1C364650A39CD1B336F03305/img/91F89859AE004153A24E7852F8666F0F/10093625_r.jpg?fit=inside|220:220,https://imgs.michaels.com/MAM/assets/1/726D45CA1C364650A39CD1B336F03305/img/91F89859AE004153A24E7852F8666F0F/10093625_r.jpg?fit=inside|540:540",
+      "https://imgs.michaels.com/MAM/assets/1/726D45CA1C364650A39CD1B336F03305/img/91F89859AE004153A24E7852F8666F0F/10093625_r.jpg?fit=inside|140:140,https://imgs.michaels.com/MAM/assets/1/726D45CA1C364650A39CD1B336F03305/img/91F89859AE004153A24E7852F8666F0F/10093625_r.jpg?fit=inside|220:220,https://imgs.michaels.com/MAM/assets/1/726D45CA1C364650A39CD1B336F03305/img/91F89859AE004153A24E7852F8666F0F/10093625_r.jpg?fit=inside|540:540",
+
+
+    ]
+    pics.map((picture, index) => {
+      slides.push(
+        <SwiperSlide key={index} className={styles.Slide}>
+          <img src={picture} className={styles.ProductImage} alt="" />
+        </SwiperSlide>
+      )
+    })
+    setSlides(slides)
+  }
   useEffect(() => {
-    fetch(`/api/products/${id}`)
-      .then((response) => response.json())
-      .then((data) => setData(data));
+    if(!data) {
+      fetch(`/api/products/${id}`)
+        .then((response) => response.json())
+        .then((data) => {
+          setData(data)
+          generateSlides(data.pictures)
+        });
+
+    }
   });
   return (
     <>
-      <div>this is product {JSON.stringify(data)}</div>
       {data && (
-        <div className={styles.container}>
+        <div className={styles.ProductContainer }>
           <div className={styles.ProductImages}>
-            <Swiper
-              style={{
-                "--swiper-navigation-color": "#fff",
-                "--swiper-pagination-color": "#fff"
-              }}
-              spaceBetween={10}
-              navigation={true}
-              thumbs={{ swiper: thumbsSwiper }}
-              className="mySwiper2"
-              rebuildOnUpdate={true}
-            >
-              {data &&
-                data.pictures.map((item, index) => (
-                  <SwiperSlide>
-                    <img src={item} alt={`Product ${index}`} width="100%" />
-                  </SwiperSlide>
-                ))}
+            <Swiper 
+              style={{'--swiper-navigation-color': '#fff','--swiper-pagination-color': '#fff'}} 
+              loop={true} 
+              spaceBetween={0} 
+              navigation={false} 
+              thumbs={{ swiper: thumbsSwiper }} 
+              className={`${styles.Carousel} Carousel`}>
+
+              {slides}
             </Swiper>
             <Swiper
               onSwiper={setThumbsSwiper}
@@ -52,15 +78,22 @@ export default function Product() {
               slidesPerView={4}
               freeMode={true}
               watchSlidesProgress={true}
-              className="mySwiper"
+              className={`${styles.Carousel} Carousel`}
             >
-              {data &&
-                data.pictures.map((item, index) => (
-                  <SwiperSlide>
-                    <img src={item} alt={`Product ${index}`} width="100%" />
-                  </SwiperSlide>
-                ))}
+              {slides}
             </Swiper>
+          </div>
+          <div className={styles.ProductInfo}>
+            <div className={styles.ProductName}>
+              {data.name}
+            </div>
+            <div className={styles.ProductDescription}>
+              {data.description}
+            </div>
+            <div className={styles.ProductPrice}>
+              {data.prices}
+            </div>
+
           </div>
         </div>
       )}
