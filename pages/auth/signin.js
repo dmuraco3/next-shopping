@@ -36,24 +36,13 @@ export default function SignUp() {
             password: genHash(formData.password, formData.email),
             type: "SignIn",
         }
-        signIn('credentials', {redirect: false, ...data}).then(response => {
-            console.log(response)
-        })
+        signIn('credentials', {redirect: false, ...data})
     }
 
 
     return (
         <div className={styles.FormContainer}>
             <form className={styles.Form}>
-                <div className={styles.FormGroup}>
-                    <textarea value={JSON.stringify(formData)} style={{height: 200}} />
-                    {session && <div>{JSON.stringify(session)}</div>}
-                    <button onClick={(e) => {
-                        e.preventDefault()
-                        console.log(session)
-                    }}>click me </button>
-
-                </div>
                 <div className={styles.FormGroup}>
                     <input type="email" name="email" id="email" placeholder="Email Address" onChange={updateFormData} formNoValidate/>
                 </div>

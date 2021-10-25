@@ -11,6 +11,5 @@ export default async function handler(req, res) {
       gender: "MALE"
     }
   })
-  console.log(reqqe);
   res.status(200).json(clothes);
 }

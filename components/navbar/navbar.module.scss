@@ -13,18 +13,19 @@ $secondary-color: #D6FF38;
     background-color: white;
 
     .NavbarLogo {
-        display: block;
+        // display: block;
         position: relative;
         flex: 0 1 10%;
-        height: 10%;
+        text-align: center;
         z-index: 3;
-
-        .NavbarLogoImage {
-
-            &:hover {
-                cursor: pointer;
+        
+            .NavbarLogoImage {
+    
+                &:hover {
+                    cursor: pointer;
+                }
             }
-        }
+
     }
     .NavComponents {
         position: relative;
@@ -90,6 +91,9 @@ $secondary-color: #D6FF38;
                     padding-left: 5px;
                     font-size: 16px;
                 }
+                &:hover {
+                    cursor: pointer;
+                }
             }
             .UserCart {
                 flex: 0 1 50%;
@@ -111,6 +115,9 @@ $secondary-color: #D6FF38;
                     color:$secondary-color;
                     font-size: 16px;
 
+                }
+                &:hover {
+                    cursor: pointer;
                 }
             }
             .JustAdded {

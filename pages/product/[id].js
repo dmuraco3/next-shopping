@@ -6,6 +6,16 @@ import { useEffect, useState } from "react";
 // Import Swiper React components
 import { Swiper, SwiperSlide } from "swiper/react";
 
+import {
+  add,
+  remove,
+  removeJustAdded,
+  selectCart,
+  selectAdded
+} from "../../stores/reducers/cart";
+import { useSelector } from "react-redux";
+import { store } from "../../stores/configureStore";
+
 // Import Swiper styles
 
 // import Swiper core and required modules
@@ -15,6 +25,20 @@ import SwiperCore, { Navigation, Thumbs } from "swiper";
 SwiperCore.use([Navigation, Thumbs]);
 
 export default function Product() {
+  const cart = useSelector(selectCart);
+  function addItemToCart(item) {
+    store.dispatch(
+      add({
+        id: item.id,
+        name: item.name,
+        price: item.price,
+        image: item.pictures[0],
+        quantity: 1,
+        category: item.categoryName,
+        gender: item.gender
+      })
+    );
+  }
   const router = useRouter();
   const { id } = router.query;
   const [data, setData] = useState();
@@ -92,13 +116,9 @@ export default function Product() {
             <div className={styles.ProductPrice}>${data.price}</div>
             <div className={styles.ProductDescription}>{data.description}</div>
             <div>
-              <button
-                onClick={() => {
-                  console.log(data);
-                }}
-              >
-                click me to show product data
-              </button>
+              <button onClick={() => {
+                addItemToCart(data);
+              }}>Add To Cart</button>
             </div>
           </div>
         </div>

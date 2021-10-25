@@ -12,8 +12,9 @@ import { useSelector } from "react-redux";
 import { store } from "../../stores/configureStore";
 import { useRouter } from "next/dist/client/router";
 
-import {signOut, useSession} from 'next-auth/client'
+import {signIn, signOut, useSession} from 'next-auth/client'
 
+import Image from 'next/image'
 
 function ActiveLink({ children, href }) {
   const router = useRouter()
@@ -53,23 +54,25 @@ export default function Navbar() {
   };
 
   useEffect(() => {
-    if (notActive /*justAdded*/) {
+    if (justAdded) {
       let JustAddedTimer = setTimeout(
-        () => store.dispatch(removeJustAdded()),
-        30000
+        () => {
+          store.dispatch(removeJustAdded())
+        },
+        3000
       );
       return () => {
         clearTimeout(JustAddedTimer);
       };
     }
-  }, [justAdded]);
+  }, [ justAdded]);
   return (
     <div>
       <nav className={styles.navbar}>
         <div className={styles.NavbarLogo}>
-          <img className={styles.NavbarLogoImage} src="/LOGO.svg" alt="LOGO" onClick={() => {
-            router.push('/')
-          }}/>
+            <Image className={styles.NavbarLogoImage} layout="fill" width={30} height={30} sizes="30" src="/LOGO.svg" alt="LOGO" onClick={() => {
+              router.push('/')
+            }}/>
         </div>
         <div className={styles.NavComponents}>
           <ActiveLink href="/new">New</ActiveLink>
@@ -81,11 +84,13 @@ export default function Navbar() {
           <div className={` ${styles.UserActions}`}>
             <div className={styles.User}>
               <FaUserCircle size={30} />
-              {!session && <span className={styles.UserDo} onClick={() => console.log(session)}>Log In</span>}
+              {!session && <span className={styles.UserDo} onClick={() => signIn()}>Log In</span>}
               {session && <span className={styles.UserDo} onClick={() => signOut()}>Sign out</span>}
             
             </div>
-            <div className={styles.UserCart}>
+            <div className={styles.UserCart} onClick={() => {
+              router.push('/cart')
+            }}>
               <FaShoppingBag size={35} className={styles.ShoppingBag} />
               <span className={styles.CartContent}>{cartSize()}</span>
             </div>

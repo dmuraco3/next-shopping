@@ -6,14 +6,14 @@ import { store } from "../../stores/configureStore";
 
 import { useRouter } from "next/router";
 
-import { Url } from "url";
 
 import Footer from "../../components/Footer";
 
 import styles from "./men.module.scss";
-import { useReducer } from "react";
 
-export default function Men() {
+import Image from "next/image"
+
+export default function New() {
   const [clothes, setClothes] = useState();
   const [pageLength, setPageLength] = useState(32);
   const [pointer, setPointer] = useState(0);
@@ -49,9 +49,7 @@ export default function Men() {
       <div className={styles.TopHeader}>
         <h1 className={styles.ProductCategory}>Shop Men</h1>
       </div>
-      <div className={styles.SideNav}>
-        <h1></h1>
-      </div>
+      
       <div className={styles.ProductLayout}>
         <div className={styles.ProductSettings}>
           <div className={styles.Left}></div>
@@ -72,10 +70,13 @@ export default function Men() {
                 }}
               >
                 <div className={styles.ProductImageContainer}>
-                  <img
+                  <Image
                     className={styles.ProductImage}
                     src={item.pictures[0]}
                     width="100%"
+                    objectFit="cover"
+                    layout="fill"
+
                     alt={item.name}
                   />
                 </div>

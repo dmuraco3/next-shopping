@@ -6,6 +6,8 @@ import { store } from "../stores/configureStore";
 import { increment, decrement, selectCount } from "../stores/reducers/counter";
 import styles from "./index.module.scss";
 
+import Image from "next/image"
+
 import { BsFillLightningFill } from "react-icons/bs";
 import { MdOutlineArrowRightAlt } from "react-icons/md";
 import { HiArrowNarrowLeft, HiArrowNarrowRight } from "react-icons/hi";
@@ -34,7 +36,13 @@ export default function Home() {
     <div>
       <div className={styles.BigLogo}>
         <h1 className={styles.BigLogoText}>HAPPY DAYS</h1>
-        <img className={styles.BigLogoImage} src="/LOGO.svg" alt="LOGO" />
+        <div className={styles.Container}>
+          <div className={styles.LogoContainer}>
+            <Image className={styles.BigLogoImage} layout="fill" objectFit="cover" src="/LOGO.svg" alt="LOGO" />
+
+          </div>
+
+        </div>
       </div>
       <div className={styles.MainCategories}>
         <div className={styles.MainCategorySmall}>
@@ -55,11 +63,12 @@ export default function Home() {
               newProducts.map((item, index) => (
                 <div className={styles.NewProduct} key={index}>
                   <div className={styles.NewProductImageContainer}>
-                    <img
+                    <Image
                       className={styles.NewProductImage}
                       src={item.pictures[0]}
                       alt={item.name}
-                      width="100%"
+                      layout="fill"
+                      objectFit="cover"
                     />
                   </div>
                   <div className={styles.NewProductInfo}>

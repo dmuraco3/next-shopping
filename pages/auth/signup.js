@@ -23,10 +23,6 @@ export default function SignUp() {
     })
     
     const updateFormData = (e) => {
-        console.log(e.target.name)
-        if(e.target.name == 'date'){
-            console.log(e.target.value)
-        }
         setFormData(prevState => ({
             ...prevState,
             [e.target.name]: e.target.value
@@ -37,7 +33,6 @@ export default function SignUp() {
         const salt = createHash('sha256').update(email).digest('hex');
         const hash = createHash('sha256').update(password).update(salt).digest("hex")
         const fullHash = hash+salt;
-        console.log(fullHash)
         return hash
     }
 
@@ -54,25 +49,13 @@ export default function SignUp() {
             news: formData.news,
             type: "SignUp",
         }
-        signIn('credentials', {redirect: false, ...data}).then(response => {
-            console.log(response)
-            console.log(status)
-        })
+        signIn('credentials', {redirect: false, ...data})
     }
 
 
     return (
         <div className={styles.FormContainer}>
             <form className={styles.Form}>
-                <div className={styles.FormGroup}>
-                    <textarea value={JSON.stringify(formData)} style={{height: 200}} />
-                    {session && <div>{JSON.stringify(session)}</div>}
-                    <button onClick={(e) => {
-                        e.preventDefault()
-                        console.log(session)
-                    }}>click me </button>
-
-                </div>
                 <div className={styles.FormGroup}>
                     <input type="email" name="email" id="email" placeholder="Email Address" onChange={updateFormData} formNoValidate/>
                 </div>
