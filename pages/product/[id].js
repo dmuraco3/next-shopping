@@ -24,7 +24,7 @@ import SwiperCore, { Navigation, Thumbs } from "swiper";
 // install Swiper modules
 SwiperCore.use([Navigation, Thumbs]);
 
-export default function Product() {
+export default function Product({product}) {
   const cart = useSelector(selectCart);
   function addItemToCart(item) {
     store.dispatch(
@@ -41,7 +41,6 @@ export default function Product() {
   }
   const router = useRouter();
   const { id } = router.query;
-  const [data, setData] = useState();
   const [slides, setSlides] = useState([]);
 
   const [thumbsSwiper, setThumbsSwiper] = useState(null);
@@ -72,19 +71,16 @@ export default function Product() {
       }
     ]
   };
+
   useEffect(() => {
-    if (!data) {
-      fetch(`/api/products/${id}`)
-        .then((response) => response.json())
-        .then((data) => {
-          setData(data);
-          generateSlides(data.pictures);
-        });
+    if(slides.length === 0){
+      generateSlides(product.pictures);
     }
-  });
+  }, [slides])
+
   return (
     <>
-      {data && (
+      {product && (
         <div className={styles.ProductContainer}>
           <div className={styles.ProductImages}>
             <Swiper
@@ -112,12 +108,14 @@ export default function Product() {
             </Swiper>
           </div>
           <div className={styles.ProductInfo}>
-            <div className={styles.ProductName}>{data.name}</div>
-            <div className={styles.ProductPrice}>${data.price}</div>
-            <div className={styles.ProductDescription}>{data.description}</div>
+            <div className={styles.ProductName}>{product.name} {product.id}</div>
+            <div className={styles.ProductPrice}>${product.price}</div>
+            <div className={styles.ProductDescription}>{product.description}</div>
             <div>
-              <button onClick={() => {
-                addItemToCart(data);
+              <button onClick={(e) => {
+                e.preventDefault()
+                console.log(product);
+                addItemToCart(product);
               }}>Add To Cart</button>
             </div>
           </div>
@@ -125,4 +123,24 @@ export default function Product() {
       )}
     </>
   );
+}
+export async function getServerSideProps(context) {
+  const id = context.query.id;
+  
+  if(id !== 'undefined') {
+    const response = await fetch(`${process.env.NEXTAUTH_URL}api/products/${id}`);
+    const product = await response.json();
+    return {
+      props: {
+        product
+      }
+    }
+
+  } else {
+    return {
+      props: {
+        product: null
+      }
+    }
+  }
 }

@@ -1,11 +1,12 @@
 import styles from './cart.module.scss'
 
-import { add, remove, selectCart, incrementQuantity } from "../../stores/reducers/cart";
+import { add, remove, selectCart, incrementQuantity, decrementQuantity } from "../../stores/reducers/cart";
 import { useSelector, useDispatch } from "react-redux";
 import { store } from "../../stores/configureStore";
 
 
 import Image from 'next/image'
+import { decrement } from '../../stores/reducers/counter';
 
 
 export default function Cart() {
@@ -30,12 +31,15 @@ export default function Cart() {
                                 </div>
                                 <div className={styles.CartItemInteractive}>
                                     <div className={styles.CartItemQuantity}>
-                                        <span className={styles.QuantityDown}> - </span>
+                                        <button className={styles.QuantityDown} onClick={(e) => {
+                                            e.preventDefault()
+                                            store.dispatch(decrementQuantity({id: item.id}))
+                                        }}> - </button>
                                         <span className={styles.Quantity}>{item.quantity}</span>
-                                        <span className={styles.QuantityUp} onClick={(e) => {
+                                        <button className={styles.QuantityUp} onClick={(e) => {
                                             e.preventDefault();
                                             store.dispatch(incrementQuantity({id: item.id}))
-                                        }}> + </span>
+                                        }}> + </button>
 
                                     </div>
                                 </div>
@@ -48,7 +52,7 @@ export default function Cart() {
                     <div className={styles.SubtotalContainer}>
                         <span className={styles.SubtotalText}>Subtotal</span>
                         <span className={styles.SubtotalText}>
-                            {cart && cart.reduce((acc, item) => {return acc + item.price}, 0)}
+                            {cart && cart.reduce((acc, item) => {return acc + (item.price * item.quantity)}, 0)}
                         </span>
 
                     </div>
