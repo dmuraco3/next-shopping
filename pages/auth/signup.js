@@ -113,7 +113,7 @@ export default function SignUp() {
                         }
                         updateFormData(e)
                     }}/>
-                    <label for="news">Sign up for emails to get updates from us on products, offers, and your Member benefits</label>
+                    <label htmlFor="news">Sign up for emails to get updates from us on products, offers, and your Member benefits</label>
                 </div>
                 <div className={styles.FormInfo}>
                     <p>By clicking Sign Up, you agree to our <a href="/somewhere" target="_blank">Terms of Service</a> and <a href="/somewhere" target="_blank">Privacy Policy.</a></p>

@@ -1,3 +1,76 @@
+@mixin for-desktop {
+    @media (min-width: 500px) {
+        @content;
+    }
+}
+
 .main {
+    display: flex;
+    justify-content: space-around;
+    @include for-desktop {
+        .CartMain {
+            width: 75%;
+        }
+    }
+    .CartMain {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-between;
+        .CartContainer {
+            flex: 0 1 72%;
+            display: flex;
+            flex-wrap: wrap;
+            .CartHeader {
+                flex: 0 1 100%;
+                text-align: center;
+            }
+            .CartItem {
+                flex: 0 1 100%;
+                display: flex;
+                position: relative;
+                padding: 0px 0px 20px 0px;
+                border-bottom: grey solid 2px;
+                .CartItemLeft {
+                    flex: 0 1 20%;
+                    position: relative;
+                    padding-bottom: calc((9 / 9) * 20%);
+                }
+                .CartItemRight {
+                    flex: 0 1 80%;
+                    padding: 0px 10px;
+                    display: flex;
+
+                    .CartItemInfo {
+                        flex: 0 1 40%;
+                        display: flex;
+                        flex-wrap: wrap;
+                        flex-direction: column;
+                        justify-content: space-around;
+
+                        .CartItemName {
+                            display: block;
+                            flex: 0 1 100%;
+                            font-size: 1.2em;
+                            font-weight: 600;
+                            height: fit-content;
+                        }
+                        .CartItemPrice {
+                            display: block;
+                            flex: 0 1 100%;
+                            font-size: 1.2em;
+                            font-weight: 500;
+                        }
+                    } 
+                }
+            }
+        }
+        .Summary {
+            flex: 0 1 25%;
+
+            .SummaryHeader {
+
+            }
+        }
+    }
     
 }

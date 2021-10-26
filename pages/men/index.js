@@ -28,7 +28,7 @@ export default function New() {
         .then((response) => response.json())
         .then((data) => setClothes(data));
     }
-  }, [clothes, setClothes]);
+  }, [pageLength, pointer, clothes, setClothes]);
 
   function addItemToCart(item) {
     store.dispatch(

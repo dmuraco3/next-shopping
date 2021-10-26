@@ -43,13 +43,34 @@ export const cartSlice = createSlice({
         ];
       }
     },
+
+    incrementQuantity: (state, action) => {
+      if (typeof action.payload === "object"){
+        if(action.payload.hasOwnProperty("id")) {
+          state.cart.map((item, index) => {
+            if (item.id === action.payload.id) {
+              state.cart = [
+                ...state.cart.slice(0, index),
+                {
+                  ...state.cart[index],
+                  quantity: state.cart[index].quantity + 1
+                },
+                ...state.cart.slice(index + 1)
+              ];
+            }
+          })
+        }
+      }
+    },
+    decrementQuantity: (state, action) => {
+    },
     removeJustAdded: (state, action) => {
       state.justAdded = null;
     }
   }
 });
 
-export const { add, remove, removeJustAdded } = cartSlice.actions;
+export const { add, remove, removeJustAdded, incrementQuantity } = cartSlice.actions;
 export const selectCart = (state) => state.cart.cart;
 export const selectAdded = (state) => state.cart.justAdded;
 export default cartSlice.reducer;
